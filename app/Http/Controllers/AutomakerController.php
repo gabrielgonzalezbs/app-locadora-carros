@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Automaker;
+use App\Repositories\AutomakerRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,19 +28,24 @@ class AutomakerController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->has('attributes')) {
+        $automakerRepository = new AutomakerRepository($this->automaker);
 
-            return response()
-                ->json(
-                    $this->automaker->selectRaw($request->get('attributes'))->with('carModels')->get(),
-                    200
-                );
 
-        }
+        $automakerRepository->filters($request->all());
+
+        // if ($request->has('attributes')) {
+
+        //     return response()
+        //         ->json(
+        //             $this->automaker->selectRaw($request->get('attributes'))->with('carModels')->get(),
+        //             200
+        //         );
+
+        // }
 
         return response()
             ->json(
-                $this->automaker->with('carModels')->get(),
+                $automakerRepository->getResult(),
                 200
             );
     }

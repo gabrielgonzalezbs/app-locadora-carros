@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarModel;
+use App\Repositories\CarModelRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,19 +28,19 @@ class CarModelController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->has('attributes')) {
+        $carModelRepository = new CarModelRepository($this->carModel);
 
-            return response()
-                ->json(
-                    $this->carModel->selectRaw($request->get('attributes'))->with('automaker')->get(),
-                    200
-                );
+        $carModelRepository->filters($request->all());
 
-        }
+        // if ($request->has('attributes')) {
+        //     $this->carModel->selectRaw($request->get('attributes'))->with('automaker');
+        // }
+
+        // $this->carModel->with('automaker');
 
         return response()
             ->json(
-                $this->carModel->with('automaker')->get(),
+                $carModelRepository->getResult(),
                 200
             );
     }
