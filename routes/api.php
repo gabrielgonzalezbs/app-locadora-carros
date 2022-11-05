@@ -17,9 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::prefix('v1')->middleware('jwt.auth')->group(function () {
 
-Route::apiResource('automakers', 'AutomakerController');
-Route::apiResource('car-models', 'CarModelController');
-Route::apiResource('clients', 'ClientController');
-Route::apiResource('locations', 'LocationController');
-Route::apiResource('vehicles', 'VehicleController');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+    Route::apiResource('automakers', 'AutomakerController');
+    Route::apiResource('car-models', 'CarModelController');
+    Route::apiResource('clients', 'ClientController');
+    Route::apiResource('locations', 'LocationController');
+    Route::apiResource('vehicles', 'VehicleController');
+
+});
+
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
