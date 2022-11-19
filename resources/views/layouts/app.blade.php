@@ -111,7 +111,9 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                @yield('header')
+                                <h5>
+                                    @yield('header')
+                                </h5>
                             </div>
 
                             <div class="card-body">
