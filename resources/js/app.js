@@ -20,6 +20,9 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/pages/ExampleComponent.vue').default);
+Vue.component('input-component', require('./components/forms/InputComponent.vue').default);
+Vue.component('table-component', require('./components/forms/TableComponent.vue').default);
+
 Vue.component('login-component', require('./components/pages/Login.vue').default);
 Vue.component('home-component', require('./components/pages/Home.vue').default);
 Vue.component('automaker-component', require('./components/pages/Automaker.vue').default);
