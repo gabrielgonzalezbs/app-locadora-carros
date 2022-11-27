@@ -113,6 +113,16 @@ export default {
         }
     },
 
+    computed: {
+        token() {
+            const { cookie } = document
+
+            const token = /token=(?<meuGrupo>.*?);/gm.exec(cookie)
+
+            return token[1];
+        }
+    },
+
     methods: {
         loadFile(e) {
             this.createImage = e.target?.files
@@ -132,7 +142,7 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data;',
                     Accept: 'application/json',
-                    Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY2ODg5NjYwNiwiZXhwIjoxNjY4ODk4NDA2LCJuYmYiOjE2Njg4OTY2MDYsImp0aSI6IndVMElUQnNoeThZMEl0c0oiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.K9EeOAFvlMkFsQrsu3FFXPgLqUil854KPIvlSG71yg8'
+                    Authorization: `Bearer ${this.token}`
                 },
             };
 
