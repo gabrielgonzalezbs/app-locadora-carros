@@ -1,6 +1,10 @@
 <template>
     <div>
 
+        <message-component v-show="alertComponent.showAlert" :alert-component="alertComponent" @closeAlert="alertComponent.showAlert = false">
+
+        </message-component>
+
         <!-- FILTRO DAS MARCAS -->
         <div class="row">
 
@@ -92,7 +96,18 @@
         <div class="row">
             <table-component
                 table-title="Lista de Marcas"
+                :body-content="listMarcasFiltred"
+                :header-content="[ '#', 'Nome', 'Imagem', ]"
             >
+
+                <template v-slot:table-body>
+                    <tr v-for="content in listMarcasFiltred" :key="content.id">
+                        <th scope="row">{{content.id}}</th>
+                        <td>{{content.name}}</td>
+                        <td><img :src="`/storage/${content.image}`" :alt="content.name" width="5%" height="5%"></td>
+                    </tr>
+                </template>
+
             </table-component>
         </div>
 
@@ -100,37 +115,62 @@
 </template>
 
 <script>
-import ModalComponent from '../forms/ModalComponent.vue';
-import TableComponent from '../forms/TableComponent.vue';
+import { api, apiSetToken } from "../../api";
+
 export default {
-  components: { TableComponent, ModalComponent },
     data() {
         return {
             filterId: null,
             filterName: null,
             createName: null,
             createImage: [],
-        }
-    },
-
-    computed: {
-        token() {
-            const { cookie } = document
-
-            const token = /token=(?<meuGrupo>.*?);/gm.exec(cookie)
-
-            return token[1];
+            alertComponent: {
+                message: null,
+                showAlert: false,
+                category: 'default'
+            },
+            listMarcas: [],
+            listMarcasFiltred: [],
         }
     },
 
     methods: {
+        listAllMarcas() {
+
+            const options = {
+                headers: {
+                    Accept: 'application/json',
+                },
+            };
+
+            api.get('/automakers', options)
+                .then(response => {
+                    console.log(response.data);
+
+                    this.listMarcas = response.data;
+                    this.listMarcasFiltred = this.listMarcas
+                }).catch(error => {
+                    console.error(error);
+                    this.alertComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
+                    this.alertComponent.category = 'danger';
+                    this.alertComponent.showAlert = true;
+                });
+
+        },
+
         loadFile(e) {
             this.createImage = e.target?.files
         },
 
         searchAutomakers() {
-            console.log(this.filterId);
-            console.log(this.filterName);
+            console.log('aqui');
+           if (this.filterId != '' || this.filterName != '') {
+
+                return this.listMarcasFiltred = this.listMarcas.filter(marca => marca.name == this.filterName || marca.id == this.filterId )
+
+            }
+
+            this.listMarcasFiltred = this.listMarcas
         },
 
         createAutomaker() {
@@ -142,17 +182,39 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data;',
                     Accept: 'application/json',
-                    Authorization: `Bearer ${this.token}`
                 },
             };
 
-            axios.post('http://127.0.0.1:8000/api/v1/automakers', formData, options)
+            api.post('/automakers', formData, options)
                 .then(response => {
                     console.log(response.data);
+
+                    this.alertComponent.message = 'Marca salva com sucesso';
+                    this.alertComponent.category = 'primary';
+                    this.alertComponent.showAlert = true;
                 }).catch(error => {
                     console.error(error);
+                    this.alertComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
+                    this.alertComponent.category = 'danger';
+                    this.alertComponent.showAlert = true;
                 });
-        }
+        },
+
+    },
+
+    // computed: {
+    //     listMarcasFiltred() {
+    //         if (this.filterId != '' || this.filterName != '') {
+
+    //             return this.listMarcasFiltred = this.listMarcas.filter(marca => marca.name == this.filterName || marca.id == this.filterId )
+    //         }
+
+    //         return this.listMarcas
+    //     }
+    // },
+
+    mounted() {
+        this.listAllMarcas();
     }
 }
 </script>
