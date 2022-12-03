@@ -24,6 +24,7 @@ Vue.component('input-component', require('./components/forms/InputComponent.vue'
 Vue.component('table-component', require('./components/forms/TableComponent.vue').default);
 Vue.component('modal-component', require('./components/forms/ModalComponent.vue').default);
 Vue.component('message-component', require('./components/forms/MessageComponent.vue').default);
+Vue.component('paginate-component', require('./components/forms/PaginateComponent.vue').default);
 
 Vue.component('login-component', require('./components/pages/Login.vue').default);
 Vue.component('home-component', require('./components/pages/Home.vue').default);

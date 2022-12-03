@@ -111,6 +111,11 @@
             </table-component>
         </div>
 
+        <div class="row">
+            <paginate-component :paginate="listMarcas" @clickPage="paginate">
+            </paginate-component>
+        </div>
+
     </div>
 </template>
 
@@ -135,7 +140,7 @@ export default {
     },
 
     methods: {
-        listAllMarcas() {
+        listAllMarcas(link = '/automakers') {
 
             const options = {
                 headers: {
@@ -143,12 +148,12 @@ export default {
                 },
             };
 
-            api.get('/automakers', options)
+            api.get(link, options)
                 .then(response => {
                     console.log(response.data);
 
                     this.listMarcas = response.data;
-                    this.listMarcasFiltred = this.listMarcas
+                    this.listMarcasFiltred = this.listMarcas.data
                 }).catch(error => {
                     console.error(error);
                     this.alertComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
@@ -163,14 +168,15 @@ export default {
         },
 
         searchAutomakers() {
-            console.log('aqui');
-           if (this.filterId != '' || this.filterName != '') {
 
-                return this.listMarcasFiltred = this.listMarcas.filter(marca => marca.name == this.filterName || marca.id == this.filterId )
+            if (this.filterId || this.filterName) {
+                console.log('filterId', this.filterId);
+                console.log('filterName', this.filterName);
+                return this.listMarcasFiltred = this.listMarcas.data.filter(marca => marca.name == this.filterName || marca.id == this.filterId )
 
             }
 
-            this.listMarcasFiltred = this.listMarcas
+            this.listMarcasFiltred = this.listMarcas.data
         },
 
         createAutomaker() {
@@ -199,6 +205,10 @@ export default {
                     this.alertComponent.showAlert = true;
                 });
         },
+
+        paginate(page) {
+            this.listAllMarcas(page.url)
+        }
 
     },
 

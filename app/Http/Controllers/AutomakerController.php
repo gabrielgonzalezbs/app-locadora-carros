@@ -45,7 +45,7 @@ class AutomakerController extends Controller
 
         return response()
             ->json(
-                $automakerRepository->getResult(),
+                $automakerRepository->getResultPaginate(),
                 200
             );
     }

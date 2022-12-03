@@ -40,7 +40,7 @@ class CarModelController extends Controller
 
         return response()
             ->json(
-                $carModelRepository->getResult(),
+                $carModelRepository->getResultPaginate(),
                 200
             );
     }

@@ -34,7 +34,7 @@ class LocationController extends Controller
 
         return response()
             ->json(
-                $location->getResult(),
+                $location->getResultPaginate(),
                 200
             );
     }

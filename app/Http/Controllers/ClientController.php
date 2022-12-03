@@ -35,7 +35,7 @@ class ClientController extends Controller
 
         return response()
             ->json(
-                $client->getResult(),
+                $client->getResultPaginate(),
                 200
             );
     }
