@@ -19,7 +19,9 @@ class MainRepository
 
             foreach ($filters as $key => $filter) {
 
-                $this->model = $this->model->where($key, $filter);
+                if (in_array($key, $this->model->fillable)) {
+                    $this->model = $this->model->where($key, $filter);
+                }
 
             }
 
@@ -30,6 +32,11 @@ class MainRepository
     public function getResult()
     {
         return $this->model->get();
+    }
+
+    public function getResultPaginate($numRows = 5)
+    {
+        return $this->model->paginate($numRows);
     }
 
 }
