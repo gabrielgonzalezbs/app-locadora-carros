@@ -72,7 +72,7 @@
                                 textLabel='ID'
                                 type-input='text'
                                 text-help='(Opcional) Você pode filtrar pelo ID das Marcas'
-                                v-model="filterId" >
+                                v-model="filter.id" >
                             </input-component>
                         </div>
                         <div class="col mb-3">
@@ -80,7 +80,7 @@
                                 textLabel='Nome da marca'
                                 type-input='text'
                                 text-help='(Opcional) Você pode filtrar pelo Nome das Marcas'
-                                v-model="filterName" >
+                                v-model="filter.name" >
                             </input-component>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
             <table-component
                 table-title="Lista de Marcas"
                 :body-content="listMarcasFiltred"
-                :header-content="[ '#', 'Nome', 'Imagem', ]"
+                :header-content="[ '#', 'Nome', 'Imagem', 'Ações']"
             >
 
                 <template v-slot:table-body>
@@ -105,6 +105,18 @@
                         <th scope="row">{{content.id}}</th>
                         <td>{{content.name}}</td>
                         <td><img :src="`/storage/${content.image}`" :alt="content.name" width="5%" height="5%"></td>
+                        <td>
+                            <div class="dropdown-center">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ações
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" @click.prevent="editAutomaker(content)">Editar</a></li>
+                                    <li><a class="dropdown-item" @click.prevent="showAutomaker(content)">Visualizar</a></li>
+                                    <li><a class="dropdown-item" @click.prevent="removeAutomaker(content)">Excluir</a></li>
+                                </ul>
+                            </div>
+                        </td>
                     </tr>
                 </template>
 
@@ -125,8 +137,10 @@ import { api, apiSetToken } from "../../api";
 export default {
     data() {
         return {
-            filterId: null,
-            filterName: null,
+            filter: {
+                id: null,
+                name: null
+            },
             createName: null,
             createImage: [],
             alertComponent: {
@@ -169,14 +183,23 @@ export default {
 
         searchAutomakers() {
 
-            if (this.filterId || this.filterName) {
-                console.log('filterId', this.filterId);
-                console.log('filterName', this.filterName);
-                return this.listMarcasFiltred = this.listMarcas.data.filter(marca => marca.name == this.filterName || marca.id == this.filterId )
+            if ( (this.filter.id && this.filter.id != null) || (this.filter.name && this.filter.name != null)) {
+
+                const searchParams = new URLSearchParams({
+                    id: this.filter.id ?? '',
+                    name: this.filter.name ?? ''
+                });
+                const queryString = searchParams.toString();
+
+                const link = `/automakers?${queryString}`;
+
+                this.listAllMarcas(link)
+
+                return
 
             }
 
-            this.listMarcasFiltred = this.listMarcas.data
+            this.listAllMarcas()
         },
 
         createAutomaker() {
@@ -208,7 +231,19 @@ export default {
 
         paginate(page) {
             this.listAllMarcas(page.url)
-        }
+        },
+
+        editAutomaker(automaker) {
+            console.log(automaker);
+        },
+
+        showAutomaker(automaker) {
+            console.log(automaker);
+        },
+
+        removeAutomaker(automaker) {
+            console.log(automaker);
+        },
 
     },
 

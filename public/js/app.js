@@ -5411,8 +5411,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      filterId: null,
-      filterName: null,
+      filter: {
+        id: null,
+        name: null
+      },
       createName: null,
       createImage: [],
       alertComponent: {
@@ -5449,18 +5451,21 @@ __webpack_require__.r(__webpack_exports__);
       this.createImage = (_e$target = e.target) === null || _e$target === void 0 ? void 0 : _e$target.files;
     },
     searchAutomakers: function searchAutomakers() {
-      var _this2 = this;
-      if (this.filterId || this.filterName) {
-        console.log('filterId', this.filterId);
-        console.log('filterName', this.filterName);
-        return this.listMarcasFiltred = this.listMarcas.data.filter(function (marca) {
-          return marca.name == _this2.filterName || marca.id == _this2.filterId;
+      if (this.filter.id && this.filter.id != null || this.filter.name && this.filter.name != null) {
+        var _this$filter$id, _this$filter$name;
+        var searchParams = new URLSearchParams({
+          id: (_this$filter$id = this.filter.id) !== null && _this$filter$id !== void 0 ? _this$filter$id : '',
+          name: (_this$filter$name = this.filter.name) !== null && _this$filter$name !== void 0 ? _this$filter$name : ''
         });
+        var queryString = searchParams.toString();
+        var link = "/automakers?".concat(queryString);
+        this.listAllMarcas(link);
+        return;
       }
-      this.listMarcasFiltred = this.listMarcas.data;
+      this.listAllMarcas();
     },
     createAutomaker: function createAutomaker() {
-      var _this3 = this;
+      var _this2 = this;
       var formData = new FormData();
       formData.append('name', this.createName);
       formData.append('image', this.createImage[0]);
@@ -5472,18 +5477,27 @@ __webpack_require__.r(__webpack_exports__);
       };
       _api__WEBPACK_IMPORTED_MODULE_0__.api.post('/automakers', formData, options).then(function (response) {
         console.log(response.data);
-        _this3.alertComponent.message = 'Marca salva com sucesso';
-        _this3.alertComponent.category = 'primary';
-        _this3.alertComponent.showAlert = true;
+        _this2.alertComponent.message = 'Marca salva com sucesso';
+        _this2.alertComponent.category = 'primary';
+        _this2.alertComponent.showAlert = true;
       })["catch"](function (error) {
         console.error(error);
-        _this3.alertComponent.message = "O servidor retornou o seguinte erro: ".concat(error.message);
-        _this3.alertComponent.category = 'danger';
-        _this3.alertComponent.showAlert = true;
+        _this2.alertComponent.message = "O servidor retornou o seguinte erro: ".concat(error.message);
+        _this2.alertComponent.category = 'danger';
+        _this2.alertComponent.showAlert = true;
       });
     },
     paginate: function paginate(page) {
       this.listAllMarcas(page.url);
+    },
+    editAutomaker: function editAutomaker(automaker) {
+      console.log(automaker);
+    },
+    showAutomaker: function showAutomaker(automaker) {
+      console.log(automaker);
+    },
+    removeAutomaker: function removeAutomaker(automaker) {
+      console.log(automaker);
     }
   },
   // computed: {
@@ -5918,11 +5932,11 @@ var render = function render() {
       "text-help": "(Opcional) Você pode filtrar pelo ID das Marcas"
     },
     model: {
-      value: _vm.filterId,
+      value: _vm.filter.id,
       callback: function callback($$v) {
-        _vm.filterId = $$v;
+        _vm.$set(_vm.filter, "id", $$v);
       },
-      expression: "filterId"
+      expression: "filter.id"
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "col mb-3"
@@ -5934,11 +5948,11 @@ var render = function render() {
       "text-help": "(Opcional) Você pode filtrar pelo Nome das Marcas"
     },
     model: {
-      value: _vm.filterName,
+      value: _vm.filter.name,
       callback: function callback($$v) {
-        _vm.filterName = $$v;
+        _vm.$set(_vm.filter, "name", $$v);
       },
-      expression: "filterName"
+      expression: "filter.name"
     }
   })], 1)]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
@@ -5956,7 +5970,7 @@ var render = function render() {
     attrs: {
       "table-title": "Lista de Marcas",
       "body-content": _vm.listMarcasFiltred,
-      "header-content": ["#", "Nome", "Imagem"]
+      "header-content": ["#", "Nome", "Imagem", "Ações"]
     },
     scopedSlots: _vm._u([{
       key: "table-body",
@@ -5975,7 +5989,42 @@ var render = function render() {
               width: "5%",
               height: "5%"
             }
-          })])]);
+          })]), _vm._v(" "), _c("td", [_c("div", {
+            staticClass: "dropdown-center"
+          }, [_c("button", {
+            staticClass: "btn btn-secondary dropdown-toggle",
+            attrs: {
+              type: "button",
+              "data-bs-toggle": "dropdown",
+              "aria-expanded": "false"
+            }
+          }, [_vm._v("\n                                Ações\n                            ")]), _vm._v(" "), _c("ul", {
+            staticClass: "dropdown-menu"
+          }, [_c("li", [_c("a", {
+            staticClass: "dropdown-item",
+            on: {
+              click: function click($event) {
+                $event.preventDefault();
+                return _vm.editAutomaker(content);
+              }
+            }
+          }, [_vm._v("Editar")])]), _vm._v(" "), _c("li", [_c("a", {
+            staticClass: "dropdown-item",
+            on: {
+              click: function click($event) {
+                $event.preventDefault();
+                return _vm.showAutomaker(content);
+              }
+            }
+          }, [_vm._v("Visualizar")])]), _vm._v(" "), _c("li", [_c("a", {
+            staticClass: "dropdown-item",
+            on: {
+              click: function click($event) {
+                $event.preventDefault();
+                return _vm.removeAutomaker(content);
+              }
+            }
+          }, [_vm._v("Excluir")])])])])])]);
         });
       },
       proxy: true
