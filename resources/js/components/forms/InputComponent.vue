@@ -6,7 +6,8 @@
             class="form-control"
             :id="idInput"
             :value="value"
-            @input="$emit('input', $event.target.value)" >
+            @input="$emit('input', $event.target.value)"
+            :disabled="disabled" >
 
         <div v-if="textHelp != ''" class="form-text">{{textHelp}}</div>
     </div>
@@ -19,7 +20,8 @@ export default {
         'textLabel',
         'typeInput',
         'textHelp',
-        'value'
+        'value',
+        'disabled'
     ],
 
 }

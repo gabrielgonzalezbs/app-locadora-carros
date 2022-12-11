@@ -16,50 +16,16 @@
                 </p>
             </div>
 
-            <div class="col-md-8">
-
-            </div>
+            <div class="col-md-8"> </div>
 
             <div class="col-md-2 align-all-end">
 
-                <!-- MODAL DE CRIAÇÃO DE MARCAS  -->
-                <modal-component
-                    modal-id='modalCreate'
-                    button-text='Adicionar'
-                    modal-title='Adicionar nova Marca'
-                >
-                    <template v-slot:modal-body>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input-component id-input='createName'
-                                    textLabel='Nome'
-                                    type-input='text'
-                                    text-help='Informe o nome da Marca'
-                                    v-model="createName" >
-                                </input-component>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="createImage" class="form-label">Logo da Marca</label>
-                                    <input
-                                        type="file"
-                                        class="form-control"
-                                        id="createImage"
-                                        @change="loadFile($event)" >
-
-                                    <div class="form-text">Adicione o Logo da marca aqui</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </template>
-
-                    <template v-slot:modal-footer>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" @click="createAutomaker">Salvar</button>
-                    </template>
-                </modal-component>
+                <!-- Button trigger modal -->
+                <p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAutomaker" @click="createAutomaker()">
+                        Adicionar
+                    </button>
+                </p>
 
             </div>
 
@@ -111,9 +77,9 @@
                                     Ações
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" @click.prevent="editAutomaker(content)">Editar</a></li>
-                                    <li><a class="dropdown-item" @click.prevent="showAutomaker(content)">Visualizar</a></li>
-                                    <li><a class="dropdown-item" @click.prevent="removeAutomaker(content)">Excluir</a></li>
+                                    <li><a class="dropdown-item" @click="editAutomaker(content)" data-bs-toggle="modal" data-bs-target="#modalAutomaker">Editar</a></li>
+                                    <li><a class="dropdown-item" @click="showAutomaker(content)" data-bs-toggle="modal" data-bs-target="#modalAutomaker">Visualizar</a></li>
+                                    <li><a class="dropdown-item" @click.prevent="deleteAutomaker(content)">Excluir</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -128,11 +94,76 @@
             </paginate-component>
         </div>
 
+        <!-- MODAL DE CRIAÇÃO/EDIÇÃO/VISUALIZAÇÃO DE MARCAS  -->
+        <modal-component
+            modal-id='modalAutomaker'
+            button-text='Adicionar'
+            modal-title='Adicionar nova Marca'
+        >
+            <template v-slot:modal-body>
+
+                <div class="row">
+                    <div class="col-md-12" v-if="marca.id != null">
+                        <input-component id-input='marcaId'
+                            textLabel='Id'
+                            type-input='text'
+                            text-help='ID da marca'
+                            v-model="marca.id"
+                            :disabled="true" >
+                        </input-component>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input-component id-input='marcaName'
+                            textLabel='Nome'
+                            type-input='text'
+                            text-help='Informe o nome da Marca'
+                            v-model="marca.name"
+                            :disabled="marca.state === 'show'" >
+                        </input-component>
+                    </div>
+
+                    <div class="col-md-12" v-if="marca.image == null">
+                        <div class="form-group">
+                            <label for="createImage" class="form-label">Logo da Marca</label>
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="createImage"
+                                @change="loadFile($event)" >
+
+                            <div class="form-text">Adicione o Logo da marca aqui</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" v-else>
+                        <p>Logo da Marca</p>
+                        <img :src="`/storage/${marca.image}`" :alt="marca.name" width="25%" height="30%">
+                    </div>
+
+                    <div class="col-md-12" v-if="marca.created_at != null">
+                        <input-component id-input='marcaCreated_at'
+                            textLabel='Criado em'
+                            type-input='text'
+                            v-model="marca.created_at"
+                            :disabled="true" >
+                        </input-component>
+                    </div>
+                </div>
+
+            </template>
+
+            <template v-slot:modal-footer v-if="marca.state != 'show'">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" @click="saveAutomaker">Salvar</button>
+            </template>
+        </modal-component>
+
     </div>
 </template>
 
 <script>
-import { api, apiSetToken } from "../../api";
+import { api } from "../../api";
 
 export default {
     data() {
@@ -140,6 +171,13 @@ export default {
             filter: {
                 id: null,
                 name: null
+            },
+            marca: {
+                state: 'create',
+                id: null,
+                name: null,
+                image: [],
+                created_at: null,
             },
             createName: null,
             createImage: [],
@@ -202,9 +240,9 @@ export default {
             this.listAllMarcas()
         },
 
-        createAutomaker() {
+        saveAutomaker() {
             let formData = new FormData();
-            formData.append('name', this.createName);
+            formData.append('name', this.marca.name);
             formData.append('image', this.createImage[0]);
 
             const options = {
@@ -229,20 +267,45 @@ export default {
                 });
         },
 
+        createAutomaker() {
+            this.marca.state = 'create'
+            this.marca.id = null
+            this.marca.name = null
+            this.marca.image = null
+            this.marca.created_at = null
+        },
+
         paginate(page) {
             this.listAllMarcas(page.url)
         },
 
         editAutomaker(automaker) {
             console.log(automaker);
+            this.marca.state = 'edit'
+            this.marca.id = automaker.id
+            this.marca.name = automaker.name
+            this.marca.image = automaker.image
+            this.marca.created_at = automaker.created_at
         },
 
         showAutomaker(automaker) {
             console.log(automaker);
+
+            this.marca.state = 'show'
+            this.marca.id = automaker.id
+            this.marca.name = automaker.name
+            this.marca.image = automaker.image
+            this.marca.created_at = automaker.created_at
         },
 
-        removeAutomaker(automaker) {
+        deleteAutomaker(automaker) {
             console.log(automaker);
+
+            this.marca.state = 'delete'
+            this.marca.id = automaker.id
+            this.marca.name = automaker.name
+            this.marca.image = automaker.image
+            this.marca.created_at = automaker.created_at
         },
 
     },

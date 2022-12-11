@@ -5314,7 +5314,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['idInput', 'textLabel', 'typeInput', 'textHelp', 'value']
+  props: ['idInput', 'textLabel', 'typeInput', 'textHelp', 'value', 'disabled']
 });
 
 /***/ }),
@@ -5415,6 +5415,13 @@ __webpack_require__.r(__webpack_exports__);
         id: null,
         name: null
       },
+      marca: {
+        state: 'create',
+        id: null,
+        name: null,
+        image: [],
+        created_at: null
+      },
       createName: null,
       createImage: [],
       alertComponent: {
@@ -5464,10 +5471,10 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.listAllMarcas();
     },
-    createAutomaker: function createAutomaker() {
+    saveAutomaker: function saveAutomaker() {
       var _this2 = this;
       var formData = new FormData();
-      formData.append('name', this.createName);
+      formData.append('name', this.marca.name);
       formData.append('image', this.createImage[0]);
       var options = {
         headers: {
@@ -5487,14 +5494,31 @@ __webpack_require__.r(__webpack_exports__);
         _this2.alertComponent.showAlert = true;
       });
     },
+    createAutomaker: function createAutomaker() {
+      this.marca.state = 'create';
+      this.marca.id = null;
+      this.marca.name = null;
+      this.marca.image = null;
+      this.marca.created_at = null;
+    },
     paginate: function paginate(page) {
       this.listAllMarcas(page.url);
     },
     editAutomaker: function editAutomaker(automaker) {
       console.log(automaker);
+      this.marca.state = 'edit';
+      this.marca.id = automaker.id;
+      this.marca.name = automaker.name;
+      this.marca.image = automaker.image;
+      this.marca.created_at = automaker.created_at;
     },
     showAutomaker: function showAutomaker(automaker) {
       console.log(automaker);
+      this.marca.state = 'show';
+      this.marca.id = automaker.id;
+      this.marca.name = automaker.name;
+      this.marca.image = automaker.image;
+      this.marca.created_at = automaker.created_at;
     },
     removeAutomaker: function removeAutomaker(automaker) {
       console.log(automaker);
@@ -5604,7 +5628,8 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: _vm.typeInput,
-      id: _vm.idInput
+      id: _vm.idInput,
+      disabled: _vm.disabled
     },
     domProps: {
       value: _vm.value
@@ -5685,14 +5710,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("button", {
-    staticClass: "btn btn-primary",
-    attrs: {
-      type: "button",
-      "data-bs-toggle": "modal",
-      "data-bs-target": "#".concat(_vm.modalId)
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.buttonText) + "\n    ")]), _vm._v(" "), _c("div", {
+  return _c("div", [_c("div", {
     staticClass: "modal fade",
     attrs: {
       id: _vm.modalId,
@@ -5840,80 +5858,19 @@ var render = function render() {
     staticClass: "col-md-8"
   }), _vm._v(" "), _c("div", {
     staticClass: "col-md-2 align-all-end"
-  }, [_c("modal-component", {
+  }, [_c("p", [_c("button", {
+    staticClass: "btn btn-primary",
     attrs: {
-      "modal-id": "modalCreate",
-      "button-text": "Adicionar",
-      "modal-title": "Adicionar nova Marca"
+      type: "button",
+      "data-bs-toggle": "modal",
+      "data-bs-target": "#modalAutomaker"
     },
-    scopedSlots: _vm._u([{
-      key: "modal-body",
-      fn: function fn() {
-        return [_c("div", {
-          staticClass: "row"
-        }, [_c("div", {
-          staticClass: "col-md-12"
-        }, [_c("input-component", {
-          attrs: {
-            "id-input": "createName",
-            textLabel: "Nome",
-            "type-input": "text",
-            "text-help": "Informe o nome da Marca"
-          },
-          model: {
-            value: _vm.createName,
-            callback: function callback($$v) {
-              _vm.createName = $$v;
-            },
-            expression: "createName"
-          }
-        })], 1), _vm._v(" "), _c("div", {
-          staticClass: "col-md-12"
-        }, [_c("div", {
-          staticClass: "form-group"
-        }, [_c("label", {
-          staticClass: "form-label",
-          attrs: {
-            "for": "createImage"
-          }
-        }, [_vm._v("Logo da Marca")]), _vm._v(" "), _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "file",
-            id: "createImage"
-          },
-          on: {
-            change: function change($event) {
-              return _vm.loadFile($event);
-            }
-          }
-        }), _vm._v(" "), _c("div", {
-          staticClass: "form-text"
-        }, [_vm._v("Adicione o Logo da marca aqui")])])])])];
-      },
-      proxy: true
-    }, {
-      key: "modal-footer",
-      fn: function fn() {
-        return [_c("button", {
-          staticClass: "btn btn-secondary",
-          attrs: {
-            type: "button",
-            "data-bs-dismiss": "modal"
-          }
-        }, [_vm._v("Cancelar")]), _vm._v(" "), _c("button", {
-          staticClass: "btn btn-primary",
-          attrs: {
-            type: "button"
-          },
-          on: {
-            click: _vm.createAutomaker
-          }
-        }, [_vm._v("Salvar")])];
-      },
-      proxy: true
-    }])
-  })], 1), _vm._v(" "), _c("div", {
+    on: {
+      click: function click($event) {
+        return _vm.createAutomaker();
+      }
+    }
+  }, [_vm._v("\n                    Adicionar\n                ")])])]), _vm._v(" "), _c("div", {
     staticClass: "collapse",
     attrs: {
       id: "collapseExample"
@@ -6002,17 +5959,23 @@ var render = function render() {
             staticClass: "dropdown-menu"
           }, [_c("li", [_c("a", {
             staticClass: "dropdown-item",
+            attrs: {
+              "data-bs-toggle": "modal",
+              "data-bs-target": "#modalAutomaker"
+            },
             on: {
               click: function click($event) {
-                $event.preventDefault();
                 return _vm.editAutomaker(content);
               }
             }
           }, [_vm._v("Editar")])]), _vm._v(" "), _c("li", [_c("a", {
             staticClass: "dropdown-item",
+            attrs: {
+              "data-bs-toggle": "modal",
+              "data-bs-target": "#modalAutomaker"
+            },
             on: {
               click: function click($event) {
-                $event.preventDefault();
                 return _vm.showAutomaker(content);
               }
             }
@@ -6038,7 +6001,123 @@ var render = function render() {
     on: {
       clickPage: _vm.paginate
     }
-  })], 1)], 1);
+  })], 1), _vm._v(" "), _c("modal-component", {
+    attrs: {
+      "modal-id": "modalAutomaker",
+      "button-text": "Adicionar",
+      "modal-title": "Adicionar nova Marca"
+    },
+    scopedSlots: _vm._u([{
+      key: "modal-body",
+      fn: function fn() {
+        return [_c("div", {
+          staticClass: "row"
+        }, [_vm.marca.id != null ? _c("div", {
+          staticClass: "col-md-12"
+        }, [_c("input-component", {
+          attrs: {
+            "id-input": "marcaId",
+            textLabel: "Id",
+            "type-input": "text",
+            "text-help": "ID da marca",
+            disabled: true
+          },
+          model: {
+            value: _vm.marca.id,
+            callback: function callback($$v) {
+              _vm.$set(_vm.marca, "id", $$v);
+            },
+            expression: "marca.id"
+          }
+        })], 1) : _vm._e(), _vm._v(" "), _c("div", {
+          staticClass: "col-md-12"
+        }, [_c("input-component", {
+          attrs: {
+            "id-input": "marcaName",
+            textLabel: "Nome",
+            "type-input": "text",
+            "text-help": "Informe o nome da Marca",
+            disabled: _vm.marca.state === "show"
+          },
+          model: {
+            value: _vm.marca.name,
+            callback: function callback($$v) {
+              _vm.$set(_vm.marca, "name", $$v);
+            },
+            expression: "marca.name"
+          }
+        })], 1), _vm._v(" "), _vm.marca.image == null ? _c("div", {
+          staticClass: "col-md-12"
+        }, [_c("div", {
+          staticClass: "form-group"
+        }, [_c("label", {
+          staticClass: "form-label",
+          attrs: {
+            "for": "createImage"
+          }
+        }, [_vm._v("Logo da Marca")]), _vm._v(" "), _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "file",
+            id: "createImage"
+          },
+          on: {
+            change: function change($event) {
+              return _vm.loadFile($event);
+            }
+          }
+        }), _vm._v(" "), _c("div", {
+          staticClass: "form-text"
+        }, [_vm._v("Adicione o Logo da marca aqui")])])]) : _c("div", {
+          staticClass: "col-md-12"
+        }, [_c("p", [_vm._v("Logo da Marca")]), _vm._v(" "), _c("img", {
+          attrs: {
+            src: "/storage/".concat(_vm.marca.image),
+            alt: _vm.marca.name,
+            width: "25%",
+            height: "30%"
+          }
+        })]), _vm._v(" "), _vm.marca.created_at != null ? _c("div", {
+          staticClass: "col-md-12"
+        }, [_c("input-component", {
+          attrs: {
+            "id-input": "marcaCreated_at",
+            textLabel: "Criado em",
+            "type-input": "text",
+            disabled: true
+          },
+          model: {
+            value: _vm.marca.created_at,
+            callback: function callback($$v) {
+              _vm.$set(_vm.marca, "created_at", $$v);
+            },
+            expression: "marca.created_at"
+          }
+        })], 1) : _vm._e()])];
+      },
+      proxy: true
+    }, _vm.marca.state != "show" ? {
+      key: "modal-footer",
+      fn: function fn() {
+        return [_c("button", {
+          staticClass: "btn btn-secondary",
+          attrs: {
+            type: "button",
+            "data-bs-dismiss": "modal"
+          }
+        }, [_vm._v("Cancelar")]), _vm._v(" "), _c("button", {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button"
+          },
+          on: {
+            click: _vm.saveAutomaker
+          }
+        }, [_vm._v("Salvar")])];
+      },
+      proxy: true
+    } : null], null, true)
+  })], 1);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -6287,8 +6366,10 @@ function setupApiOnResponseError(responseInterceptor) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -6297,6 +6378,7 @@ function setupApiOnResponseError(responseInterceptor) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"]);
+
 
 /**
  * The following block of code may be used to automatically register your
