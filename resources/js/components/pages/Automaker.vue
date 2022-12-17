@@ -1,9 +1,9 @@
 <template>
     <div>
 
-        <message-component v-show="alertComponent.showAlert" :alert-component="alertComponent" @closeAlert="alertComponent.showAlert = false">
+        <message-component v-show="messageComponent.showAlert" :alert-component="messageComponent" @closeAlert="messageComponent.showAlert = false"></message-component>
 
-        </message-component>
+        <alert-component v-show="alertComponent.showAlert" :alert-component="alertComponent" @clickConfirm="deleteAutomaker()"></alert-component>
 
         <!-- FILTRO DAS MARCAS -->
         <div class="row">
@@ -79,7 +79,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" @click="editAutomaker(content)" data-bs-toggle="modal" data-bs-target="#modalAutomaker">Editar</a></li>
                                     <li><a class="dropdown-item" @click="showAutomaker(content)" data-bs-toggle="modal" data-bs-target="#modalAutomaker">Visualizar</a></li>
-                                    <li><a class="dropdown-item" @click.prevent="deleteAutomaker(content)">Excluir</a></li>
+                                    <li><a class="dropdown-item" @click.prevent="confirmDelete(content)">Excluir</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -123,7 +123,7 @@
                         </input-component>
                     </div>
 
-                    <div class="col-md-12" v-if="marca.image == null">
+                    <div class="col-md-12" v-if="marca.state == 'create' || marca.state == 'edit'">
                         <div class="form-group">
                             <label for="createImage" class="form-label">Logo da Marca</label>
                             <input
@@ -134,9 +134,11 @@
 
                             <div class="form-text">Adicione o Logo da marca aqui</div>
                         </div>
+
+
                     </div>
 
-                    <div class="col-md-12" v-else>
+                    <div class="col-md-12" v-if="marca.state == 'show' || marca.state == 'edit'">
                         <p>Logo da Marca</p>
                         <img :src="`/storage/${marca.image}`" :alt="marca.name" width="25%" height="30%">
                     </div>
@@ -181,10 +183,14 @@ export default {
             },
             createName: null,
             createImage: [],
-            alertComponent: {
+            messageComponent: {
                 message: null,
                 showAlert: false,
                 category: 'default'
+            },
+            alertComponent: {
+                message: null,
+                showAlert: false,
             },
             listMarcas: [],
             listMarcasFiltred: [],
@@ -202,15 +208,14 @@ export default {
 
             api.get(link, options)
                 .then(response => {
-                    console.log(response.data);
 
                     this.listMarcas = response.data;
                     this.listMarcasFiltred = this.listMarcas.data
                 }).catch(error => {
                     console.error(error);
-                    this.alertComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
-                    this.alertComponent.category = 'danger';
-                    this.alertComponent.showAlert = true;
+                    this.messageComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
+                    this.messageComponent.category = 'danger';
+                    this.messageComponent.showAlert = true;
                 });
 
         },
@@ -240,10 +245,13 @@ export default {
             this.listAllMarcas()
         },
 
-        saveAutomaker() {
+        async saveAutomaker() {
             let formData = new FormData();
+
             formData.append('name', this.marca.name);
-            formData.append('image', this.createImage[0]);
+
+            if (this.createImage[0])
+                formData.append('image', this.createImage[0]);
 
             const options = {
                 headers: {
@@ -252,19 +260,43 @@ export default {
                 },
             };
 
-            api.post('/automakers', formData, options)
-                .then(response => {
-                    console.log(response.data);
+            console.log(this.marca);
 
-                    this.alertComponent.message = 'Marca salva com sucesso';
-                    this.alertComponent.category = 'primary';
-                    this.alertComponent.showAlert = true;
-                }).catch(error => {
-                    console.error(error);
-                    this.alertComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
-                    this.alertComponent.category = 'danger';
-                    this.alertComponent.showAlert = true;
-                });
+            if (this.marca.state == 'create') {
+
+                await api.post('/automakers', formData, options)
+                    .then(response => {
+
+                        this.messageComponent.message = 'Marca salva com sucesso';
+                        this.messageComponent.category = 'primary';
+                        this.messageComponent.showAlert = true;
+                    }).catch(error => {
+                        console.error(error);
+                        this.messageComponent.message = `O servidor retornou o seguinte erro: ${error.response.data.message}` ;
+                        this.messageComponent.category = 'danger';
+                        this.messageComponent.showAlert = true;
+                    });
+
+            } else {
+                formData.append('_method', 'patch');
+
+                await api.post(`/automakers/${this.marca.id}`, formData, options)
+                    .then(response => {
+
+                        this.messageComponent.message = 'Marca salva com sucesso';
+                        this.messageComponent.category = 'primary';
+                        this.messageComponent.showAlert = true;
+                    }).catch(error => {
+                        console.error(error);
+                        this.messageComponent.message = `O servidor retornou o seguinte erro: ${error.response.data.message}` ;
+                        this.messageComponent.category = 'danger';
+                        this.messageComponent.showAlert = true;
+                    });
+
+            }
+
+            this.listAllMarcas();
+
         },
 
         createAutomaker() {
@@ -280,7 +312,6 @@ export default {
         },
 
         editAutomaker(automaker) {
-            console.log(automaker);
             this.marca.state = 'edit'
             this.marca.id = automaker.id
             this.marca.name = automaker.name
@@ -289,8 +320,6 @@ export default {
         },
 
         showAutomaker(automaker) {
-            console.log(automaker);
-
             this.marca.state = 'show'
             this.marca.id = automaker.id
             this.marca.name = automaker.name
@@ -298,14 +327,39 @@ export default {
             this.marca.created_at = automaker.created_at
         },
 
-        deleteAutomaker(automaker) {
-            console.log(automaker);
+        confirmDelete(automaker) {
 
             this.marca.state = 'delete'
             this.marca.id = automaker.id
             this.marca.name = automaker.name
             this.marca.image = automaker.image
             this.marca.created_at = automaker.created_at
+
+            this.alertComponent.message = `Você realmente deseja apagar a marca ${automaker.name}?`;
+            this.alertComponent.showAlert = true;
+        },
+
+        deleteAutomaker() {
+            const options = {
+                headers: {
+                    Accept: 'application/json',
+                },
+            };
+
+            api.delete(`/automakers/${this.marca.id}`, options)
+                .then(response => {
+                    this.alertComponent.showAlert = false;
+
+                    this.messageComponent.message = `A marca ${this.marca.name} foi removida com sucesso`;
+                    this.messageComponent.category = 'primary';
+                    this.messageComponent.showAlert = true;
+
+                    this.listAllMarcas();
+                }).catch(error => {
+                    this.messageComponent.message = `O servidor retornou o seguinte erro: ${error.message}` ;
+                    this.messageComponent.category = 'danger';
+                    this.messageComponent.showAlert = true;
+                });
         },
 
     },

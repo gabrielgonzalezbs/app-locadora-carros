@@ -30,7 +30,6 @@ class AutomakerController extends Controller
 
         $automakerRepository = new AutomakerRepository($this->automaker);
 
-
         $automakerRepository->filters($request->all());
 
         // if ($request->has('attributes')) {
@@ -133,7 +132,9 @@ class AutomakerController extends Controller
 
             // PERCORRO O ARRAY DOS CAMPOS INFORMADOS E CRIO UM ARRAY COM AS REGRAS EXISTENTES PARA OS CAMPOS INFORMADOS
             foreach($inputKeys as $key){
-                $rules[$key] = $automaker->rules()[$key];
+                if ($key != '_method') {
+                    $rules[$key] = $automaker->rules()[$key];
+                }
             }
 
             $request->validate($rules, $automaker->feedback());
@@ -141,20 +142,24 @@ class AutomakerController extends Controller
             $request->validate($automaker->rules(), $automaker->feedback());
         }
 
+        $automaker->fill($request->all());
+
         //apago a imagem antiga caso o request contenha uma nova imagem
-        if ($request->file('image')) {
+        if (!empty($request->file('image'))) {
             Storage::disk('public')->delete($automaker->image);
+
+            $image = $request->file('image');
+            $image_urn = $image->store('images', 'public');
+
+            $automaker->image = $image_urn;
+
         }
 
-        $image = $request->file('image');
-        $image_urn = $image->store('images', 'public');
+        if ($automaker->save()) {
+            return response()->json(['message' => 'Automaker updated with successfully', 'automaker' => $automaker, 'resquest' => $request->all()], 200);
+        }
 
-        $automaker->fill($request->all());
-        $automaker->image = $image_urn;
-
-        $automaker->save();
-
-        return $automaker;
+        return response()->json(['message' => 'Error automaker update', 'automaker' => $automaker], 500);
     }
 
     /**

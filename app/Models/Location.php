@@ -9,7 +9,7 @@ class Location extends Model
 {
     use HasFactory;
 
-    public $fillable = [
+    protected $fillable = [
         'client_id',
         'vehicle_id',
         'start_date_range',

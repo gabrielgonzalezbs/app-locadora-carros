@@ -9,7 +9,7 @@ class Automaker extends Model
 {
     use HasFactory;
 
-    public $fillable = [
+    protected $fillable = [
         'name',
         'image',
     ];

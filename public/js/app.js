@@ -5302,6 +5302,23 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/AlertComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/AlertComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['alertComponent']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/InputComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/InputComponent.vue?vue&type=script&lang=js& ***!
@@ -5407,6 +5424,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/js/api.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5424,10 +5445,14 @@ __webpack_require__.r(__webpack_exports__);
       },
       createName: null,
       createImage: [],
-      alertComponent: {
+      messageComponent: {
         message: null,
         showAlert: false,
         category: 'default'
+      },
+      alertComponent: {
+        message: null,
+        showAlert: false
       },
       listMarcas: [],
       listMarcasFiltred: []
@@ -5443,14 +5468,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       _api__WEBPACK_IMPORTED_MODULE_0__.api.get(link, options).then(function (response) {
-        console.log(response.data);
         _this.listMarcas = response.data;
         _this.listMarcasFiltred = _this.listMarcas.data;
       })["catch"](function (error) {
         console.error(error);
-        _this.alertComponent.message = "O servidor retornou o seguinte erro: ".concat(error.message);
-        _this.alertComponent.category = 'danger';
-        _this.alertComponent.showAlert = true;
+        _this.messageComponent.message = "O servidor retornou o seguinte erro: ".concat(error.message);
+        _this.messageComponent.category = 'danger';
+        _this.messageComponent.showAlert = true;
       });
     },
     loadFile: function loadFile(e) {
@@ -5473,26 +5497,62 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveAutomaker: function saveAutomaker() {
       var _this2 = this;
-      var formData = new FormData();
-      formData.append('name', this.marca.name);
-      formData.append('image', this.createImage[0]);
-      var options = {
-        headers: {
-          'Content-Type': 'multipart/form-data;',
-          Accept: 'application/json'
-        }
-      };
-      _api__WEBPACK_IMPORTED_MODULE_0__.api.post('/automakers', formData, options).then(function (response) {
-        console.log(response.data);
-        _this2.alertComponent.message = 'Marca salva com sucesso';
-        _this2.alertComponent.category = 'primary';
-        _this2.alertComponent.showAlert = true;
-      })["catch"](function (error) {
-        console.error(error);
-        _this2.alertComponent.message = "O servidor retornou o seguinte erro: ".concat(error.message);
-        _this2.alertComponent.category = 'danger';
-        _this2.alertComponent.showAlert = true;
-      });
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var formData, options;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                formData = new FormData();
+                formData.append('name', _this2.marca.name);
+                if (_this2.createImage[0]) formData.append('image', _this2.createImage[0]);
+                options = {
+                  headers: {
+                    'Content-Type': 'multipart/form-data;',
+                    Accept: 'application/json'
+                  }
+                };
+                console.log(_this2.marca);
+                if (!(_this2.marca.state == 'create')) {
+                  _context.next = 10;
+                  break;
+                }
+                _context.next = 8;
+                return _api__WEBPACK_IMPORTED_MODULE_0__.api.post('/automakers', formData, options).then(function (response) {
+                  _this2.messageComponent.message = 'Marca salva com sucesso';
+                  _this2.messageComponent.category = 'primary';
+                  _this2.messageComponent.showAlert = true;
+                })["catch"](function (error) {
+                  console.error(error);
+                  _this2.messageComponent.message = "O servidor retornou o seguinte erro: ".concat(error.response.data.message);
+                  _this2.messageComponent.category = 'danger';
+                  _this2.messageComponent.showAlert = true;
+                });
+              case 8:
+                _context.next = 13;
+                break;
+              case 10:
+                formData.append('_method', 'patch');
+                _context.next = 13;
+                return _api__WEBPACK_IMPORTED_MODULE_0__.api.post("/automakers/".concat(_this2.marca.id), formData, options).then(function (response) {
+                  _this2.messageComponent.message = 'Marca salva com sucesso';
+                  _this2.messageComponent.category = 'primary';
+                  _this2.messageComponent.showAlert = true;
+                })["catch"](function (error) {
+                  console.error(error);
+                  _this2.messageComponent.message = "O servidor retornou o seguinte erro: ".concat(error.response.data.message);
+                  _this2.messageComponent.category = 'danger';
+                  _this2.messageComponent.showAlert = true;
+                });
+              case 13:
+                _this2.listAllMarcas();
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     createAutomaker: function createAutomaker() {
       this.marca.state = 'create';
@@ -5505,7 +5565,6 @@ __webpack_require__.r(__webpack_exports__);
       this.listAllMarcas(page.url);
     },
     editAutomaker: function editAutomaker(automaker) {
-      console.log(automaker);
       this.marca.state = 'edit';
       this.marca.id = automaker.id;
       this.marca.name = automaker.name;
@@ -5513,15 +5572,39 @@ __webpack_require__.r(__webpack_exports__);
       this.marca.created_at = automaker.created_at;
     },
     showAutomaker: function showAutomaker(automaker) {
-      console.log(automaker);
       this.marca.state = 'show';
       this.marca.id = automaker.id;
       this.marca.name = automaker.name;
       this.marca.image = automaker.image;
       this.marca.created_at = automaker.created_at;
     },
-    removeAutomaker: function removeAutomaker(automaker) {
-      console.log(automaker);
+    confirmDelete: function confirmDelete(automaker) {
+      this.marca.state = 'delete';
+      this.marca.id = automaker.id;
+      this.marca.name = automaker.name;
+      this.marca.image = automaker.image;
+      this.marca.created_at = automaker.created_at;
+      this.alertComponent.message = "Voc\xEA realmente deseja apagar a marca ".concat(automaker.name, "?");
+      this.alertComponent.showAlert = true;
+    },
+    deleteAutomaker: function deleteAutomaker() {
+      var _this3 = this;
+      var options = {
+        headers: {
+          Accept: 'application/json'
+        }
+      };
+      _api__WEBPACK_IMPORTED_MODULE_0__.api["delete"]("/automakers/".concat(this.marca.id), options).then(function (response) {
+        _this3.alertComponent.showAlert = false;
+        _this3.messageComponent.message = "A marca ".concat(_this3.marca.name, " foi removida com sucesso");
+        _this3.messageComponent.category = 'primary';
+        _this3.messageComponent.showAlert = true;
+        _this3.listAllMarcas();
+      })["catch"](function (error) {
+        _this3.messageComponent.message = "O servidor retornou o seguinte erro: ".concat(error.message);
+        _this3.messageComponent.category = 'danger';
+        _this3.messageComponent.showAlert = true;
+      });
     }
   },
   // computed: {
@@ -5599,6 +5682,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm$alertComponent$he, _vm$alertComponent, _vm$alertComponent$me, _vm$alertComponent2;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("div", {
+    staticClass: "toast-container position-fixed top-50 start-50 translate-middle-x alert"
+  }, [_c("div", {
+    staticClass: "toast fade show",
+    attrs: {
+      role: "alert",
+      "aria-live": "assertive",
+      "aria-atomic": "true"
+    }
+  }, [_c("div", {
+    staticClass: "toast-header header"
+  }, [_c("strong", {
+    staticClass: "me-auto"
+  }, [_vm._v("\n                    " + _vm._s((_vm$alertComponent$he = (_vm$alertComponent = _vm.alertComponent) === null || _vm$alertComponent === void 0 ? void 0 : _vm$alertComponent.header) !== null && _vm$alertComponent$he !== void 0 ? _vm$alertComponent$he : "Tem certeza que deseja realizar esta ação?") + "\n                ")])]), _vm._v(" "), _c("div", {
+    staticClass: "toast-body"
+  }, [_vm._v("\n                " + _vm._s((_vm$alertComponent$me = (_vm$alertComponent2 = _vm.alertComponent) === null || _vm$alertComponent2 === void 0 ? void 0 : _vm$alertComponent2.message) !== null && _vm$alertComponent$me !== void 0 ? _vm$alertComponent$me : "Atenção, ao confirmar esta ação, ela não poderá ser desfeita.") + "\n\n                "), _c("div", {
+    staticClass: "mt-2 pt-2 border-top"
+  }, [_c("button", {
+    staticClass: "btn btn-danger btn-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.$emit("clickConfirm", true);
+      }
+    }
+  }, [_vm._v("Confirmar")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-secondary btn-sm",
+    attrs: {
+      type: "button",
+      "data-bs-dismiss": "toast"
+    }
+  }, [_vm._v("Cancelar")])])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
 
 /***/ }),
 
@@ -5841,6 +5981,21 @@ var render = function render() {
     directives: [{
       name: "show",
       rawName: "v-show",
+      value: _vm.messageComponent.showAlert,
+      expression: "messageComponent.showAlert"
+    }],
+    attrs: {
+      "alert-component": _vm.messageComponent
+    },
+    on: {
+      closeAlert: function closeAlert($event) {
+        _vm.messageComponent.showAlert = false;
+      }
+    }
+  }), _vm._v(" "), _c("alert-component", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
       value: _vm.alertComponent.showAlert,
       expression: "alertComponent.showAlert"
     }],
@@ -5848,8 +6003,8 @@ var render = function render() {
       "alert-component": _vm.alertComponent
     },
     on: {
-      closeAlert: function closeAlert($event) {
-        _vm.alertComponent.showAlert = false;
+      clickConfirm: function clickConfirm($event) {
+        return _vm.deleteAutomaker();
       }
     }
   }), _vm._v(" "), _c("div", {
@@ -5984,7 +6139,7 @@ var render = function render() {
             on: {
               click: function click($event) {
                 $event.preventDefault();
-                return _vm.removeAutomaker(content);
+                return _vm.confirmDelete(content);
               }
             }
           }, [_vm._v("Excluir")])])])])])]);
@@ -6046,7 +6201,7 @@ var render = function render() {
             },
             expression: "marca.name"
           }
-        })], 1), _vm._v(" "), _vm.marca.image == null ? _c("div", {
+        })], 1), _vm._v(" "), _vm.marca.state == "create" || _vm.marca.state == "edit" ? _c("div", {
           staticClass: "col-md-12"
         }, [_c("div", {
           staticClass: "form-group"
@@ -6068,7 +6223,7 @@ var render = function render() {
           }
         }), _vm._v(" "), _c("div", {
           staticClass: "form-text"
-        }, [_vm._v("Adicione o Logo da marca aqui")])])]) : _c("div", {
+        }, [_vm._v("Adicione o Logo da marca aqui")])])]) : _vm._e(), _vm._v(" "), _vm.marca.state == "show" || _vm.marca.state == "edit" ? _c("div", {
           staticClass: "col-md-12"
         }, [_c("p", [_vm._v("Logo da Marca")]), _vm._v(" "), _c("img", {
           attrs: {
@@ -6077,7 +6232,7 @@ var render = function render() {
             width: "25%",
             height: "30%"
           }
-        })]), _vm._v(" "), _vm.marca.created_at != null ? _c("div", {
+        })]) : _vm._e(), _vm._v(" "), _vm.marca.created_at != null ? _c("div", {
           staticClass: "col-md-12"
         }, [_c("input-component", {
           attrs: {
@@ -6397,6 +6552,7 @@ Vue.component('table-component', (__webpack_require__(/*! ./components/forms/Tab
 Vue.component('modal-component', (__webpack_require__(/*! ./components/forms/ModalComponent.vue */ "./resources/js/components/forms/ModalComponent.vue")["default"]));
 Vue.component('message-component', (__webpack_require__(/*! ./components/forms/MessageComponent.vue */ "./resources/js/components/forms/MessageComponent.vue")["default"]));
 Vue.component('paginate-component', (__webpack_require__(/*! ./components/forms/PaginateComponent.vue */ "./resources/js/components/forms/PaginateComponent.vue")["default"]));
+Vue.component('alert-component', (__webpack_require__(/*! ./components/forms/AlertComponent.vue */ "./resources/js/components/forms/AlertComponent.vue")["default"]));
 Vue.component('login-component', (__webpack_require__(/*! ./components/pages/Login.vue */ "./resources/js/components/pages/Login.vue")["default"]));
 Vue.component('home-component', (__webpack_require__(/*! ./components/pages/Home.vue */ "./resources/js/components/pages/Home.vue")["default"]));
 Vue.component('automaker-component', (__webpack_require__(/*! ./components/pages/Automaker.vue */ "./resources/js/components/pages/Automaker.vue")["default"]));
@@ -29573,6 +29729,45 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./resources/js/components/forms/AlertComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/forms/AlertComponent.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AlertComponent_vue_vue_type_template_id_fb1f4568_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true& */ "./resources/js/components/forms/AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true&");
+/* harmony import */ var _AlertComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlertComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/forms/AlertComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AlertComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AlertComponent_vue_vue_type_template_id_fb1f4568_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AlertComponent_vue_vue_type_template_id_fb1f4568_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "fb1f4568",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/forms/AlertComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/forms/InputComponent.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/forms/InputComponent.vue ***!
@@ -29887,6 +30082,22 @@ component.options.__file = "resources/js/components/pages/Login.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/forms/AlertComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/forms/AlertComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AlertComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/AlertComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/forms/InputComponent.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/forms/InputComponent.vue?vue&type=script&lang=js& ***!
@@ -29996,6 +30207,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/Login.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/forms/AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/forms/AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true& ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertComponent_vue_vue_type_template_id_fb1f4568_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertComponent_vue_vue_type_template_id_fb1f4568_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlertComponent_vue_vue_type_template_id_fb1f4568_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/forms/AlertComponent.vue?vue&type=template&id=fb1f4568&scoped=true&");
+
 
 /***/ }),
 
