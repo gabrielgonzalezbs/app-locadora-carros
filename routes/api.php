@@ -19,7 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::prefix('v1')->middleware('jwt.auth')->group(function () {
 
-    Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
     Route::apiResource('automakers', 'AutomakerController');
@@ -32,3 +31,4 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
 
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');

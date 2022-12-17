@@ -6505,6 +6505,16 @@ var token = /*#__PURE__*/_wrapRegExp(/token=(.*?);/gm, {
 }).exec(cookie);
 api.defaults.headers.authorization = token ? "Bearer ".concat(token[1]) : null;
 api.defaults.headers.accept = 'application/json';
+api.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status == 401 && error.response.data.message == "Token has expired") {
+    api.post('refresh').then(function (response) {
+      document.cookie = "token=".concat(response.data.token);
+      window.location.reload();
+    });
+  }
+});
 function setupApiOnResponseError(responseInterceptor) {
   api.interceptors.response.use(null, responseInterceptor);
 }
