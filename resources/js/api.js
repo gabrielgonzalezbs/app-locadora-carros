@@ -10,6 +10,8 @@ const token = /token=(?<meuGrupo>.*?);/gm.exec(cookie)
 
 api.defaults.headers.authorization = token ? `Bearer ${token[1]}` : null;
 
+api.defaults.headers.accept = 'application/json';
+
 function setupApiOnResponseError(responseInterceptor) {
   api.interceptors.response.use(null, responseInterceptor);
 }

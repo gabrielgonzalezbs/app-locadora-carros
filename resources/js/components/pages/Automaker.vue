@@ -63,7 +63,7 @@
             <table-component
                 table-title="Lista de Marcas"
                 :body-content="listMarcasFiltred"
-                :header-content="[ '#', 'Nome', 'Imagem', 'Ações']"
+                :header-content="[ '#', 'Nome', 'Imagem', 'Dt. Criação', 'Ações']"
             >
 
                 <template v-slot:table-body>
@@ -71,6 +71,9 @@
                         <th scope="row">{{content.id}}</th>
                         <td>{{content.name}}</td>
                         <td><img :src="`/storage/${content.image}`" :alt="content.name" width="5%" height="5%"></td>
+                        <td>
+                            {{ content.created_at | formatDate }}
+                        </td>
                         <td>
                             <div class="dropdown-center">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -167,6 +170,8 @@
 <script>
 import { api } from "../../api";
 
+import { formatDate } from "../filters/DateFilter";
+
 export default {
     data() {
         return {
@@ -197,16 +202,14 @@ export default {
         }
     },
 
+    filters: {
+        formatDate
+    },
+
     methods: {
         listAllMarcas(link = '/automakers') {
 
-            const options = {
-                headers: {
-                    Accept: 'application/json',
-                },
-            };
-
-            api.get(link, options)
+            api.get(link)
                 .then(response => {
 
                     this.listMarcas = response.data;
@@ -256,7 +259,6 @@ export default {
             const options = {
                 headers: {
                     'Content-Type': 'multipart/form-data;',
-                    Accept: 'application/json',
                 },
             };
 
@@ -340,13 +342,8 @@ export default {
         },
 
         deleteAutomaker() {
-            const options = {
-                headers: {
-                    Accept: 'application/json',
-                },
-            };
 
-            api.delete(`/automakers/${this.marca.id}`, options)
+            api.delete(`/automakers/${this.marca.id}`)
                 .then(response => {
                     this.alertComponent.showAlert = false;
 
